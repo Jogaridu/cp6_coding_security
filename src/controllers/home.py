@@ -1,26 +1,20 @@
-from flask import Blueprint
+from flask import Blueprint, request
 import sys
 import os
 import datetime
 import locale
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
-from cliente import cliente_obj
+from usuario import usuario_obj
 
 home = Blueprint('home', __name__)
 
-@home.route('/api/monitorar')
+@home.route('/api/cadastrar', methods=['POST'])
 def api_monitorar():
 
-    locale.setlocale(locale.LC_TIME, 'pt_BR')
-    data_atual = datetime.datetime.now()
+    response = usuario_obj.cadastrar(request.form)
 
-    dia_atual = data_atual.strftime('%d')
-    mes_atual = data_atual.strftime('%B').capitalize()
-    
-    data = {'status': 'sucesso'}
-
-    return retornoAPI(200, 'success', {dia_atual: dia_atual})
+    return retornoAPI(200, 'success', '')
 
 
 def retornoAPI(status_code, status, dados):
