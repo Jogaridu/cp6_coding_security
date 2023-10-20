@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>PacketGuardian</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+</head>
+
+<body>
+    <div class="panel">
+        <div class="panel-button">
+            <h1>LIGAR/DESLIGAR captura:</h1>
+            <div class="button">
+                <div class="button-indicator"></div>
+            </div>
+        </div>
+        <div class="panel-packets">
+            <h1>Packets Data Units (PDUs)</h1>
+            <div class="packet ethernet">
+                <h1>Cabeçalho Ethernet</h1>
+                <ul>
+                    <li>MAC de destino:</li>
+                    <li>MAC de origem:</li>
+                    <li>Tipo:</li>
+                </ul>
+            </div>
+            <div class="packet ethernet">
+                <h1>Cabeçalho Ethernet</h1>
+                <ul>
+                    <li>MAC de destino:</li>
+                    <li>MAC de origem:</li>
+                    <li>Tipo:</li>
+                </ul>
+            </div>
+            <div class="packet ip">
+                <h1>Cabeçalho IP</h1>
+                <ul>
+                    <li>Endereço de origem:</li>
+                    <li>Endereço de destino:</li>
+                    <li>Protocolo:</li>
+                </ul>
+            </div>
+            <div class="packet tcp">
+                <h1>Cabeçalho TCP</h1>
+                <ul>
+                    <li>Porta de origem:</li>
+                    <li>Porta de destino:</li>
+                    <li>Número de Sequência:</li>
+                    <li>Número de Ack:</li>
+                </ul>
+            </div>
+            <div class="packet UDP">
+                <h1>Cabeçalho UDP</h1>
+                <ul>
+                    <li>Porta de origem:</li>
+                    <li>Porta de destino:</li>
+                    <li>Tamanho:</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <div class="container">
+        <h1 class="text-center">Formulário de Contato</h1>
+        <form id="contact-form">
+            <div class="form-group">
+                <label for="nome">Nome:</label>
+                <input type="text" class="form-control" id="nome" name="nome" required maxlength="50">
+                <div class="small text-muted">Caracteres restantes: <span id="nome-count">50</span></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" name="email" required maxlength="100">
+                <div class="small text-muted">Caracteres restantes: <span id="email-count">100</span></div>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF:</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" required maxlength="14">
+            </div>
+            <div class="form-group">
+                <label for="telefone">Telefone:</label>
+                <input type="tel" class="form-control" id="telefone" name="telefone" required maxlength="15">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#cpf").mask("000.000.000-00");
+            $("#telefone").mask("(00) 0000-00009");
+
+            $("#contact-form").validate({
+                rules: {
+                    nome: {
+                        required: true,
+                        maxlength: 50
+                    },
+                    email: {
+                        required: true,
+                        maxlength: 100
+                    }
+                },
+                messages: {
+                    nome: {
+                        required: "Campo obrigatório.",
+                        maxlength: "Limite de 50 caracteres atingido."
+                    },
+                    email: {
+                        required: "Campo obrigatório.",
+                        maxlength: "Limite de 100 caracteres atingido."
+                    }
+                }
+            });
+
+            $("#nome").on("input", function () {
+                var nomeLength = $(this).val().length;
+                var maxLength = parseInt($(this).attr("maxlength"));
+                var remaining = maxLength - nomeLength;
+                $("#nome-count").text(remaining);
+            });
+            $("#email").on("input", function () {
+                var emailLength = $(this).val().length;
+                var maxLength = parseInt($(this).attr("maxlength"));
+                var remaining = maxLength - emailLength;
+                $("#email-count").text(remaining);
+            });
+        });
+    </script> -->
+
+    <script src="../static/js/script.js"></script>
+</body>
+
+</html>
