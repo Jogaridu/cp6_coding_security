@@ -3,12 +3,13 @@ import sys
 import bcrypt
 import jwt
 import datetime
+from decouple import config
 
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 from conexao_db  import instanciar_usuarios
 
-SECRET_KEY = 'guardian'
+SECRET_KEY = config('SECRET_KEY')
 
 # Instância do banco
 colecao_usuario = instanciar_usuarios()
