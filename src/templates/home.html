@@ -335,9 +335,9 @@
                 <div class="form-item log-in">
                     <div class="table">
                         <div class="table-cell">
-                            <input name="Usuário" placeholder="Usuário" type="text" maxlength="50" />
-                            <input name="senha" placeholder="Senha" type="password" maxlength="24" />
-                            <div class="btn">
+                            <input id="usuario-login" name="Usuário" placeholder="Usuário" type="text" maxlength="50" />
+                            <input id="senha-login" name="senha" placeholder="Senha" type="password" maxlength="24" />
+                            <div class="btn" id="btn-login">
                                 Logar
                             </div>
                         </div>
@@ -373,9 +373,12 @@
 
         $(document).ready(function () {
 
+            validarUsuarioLogado();
+
             $(".info-item .btn").click(function () {
                 $(".container").toggleClass("log-in");
             });
+
 
             $("#btn-cadastrar").click(async function () {
 
@@ -390,7 +393,7 @@
                             return 0;
                         }
 
-                        toastr.error(`Preencha o campo obrigatório: "${campo.toUpperCase()}"`)
+                        toastr.error(`Preencha o campo obrigatório: "${campo.toUpperCase()}"`, 'Erro')
 
                         return 1; // Reporta 1 erro encontrado
 
@@ -416,13 +419,107 @@
                 data.append('usuario', form.pegarValor('usuario'));
                 data.append('senha', form.pegarValor('senha'));
 
-                const response = await fetch('/api/cadastrar', {
+                let response = await fetch('/api/cadastrar', {
                     method: 'POST',
                     body: data
                 });
 
+                response = await response.json();
+
+                if (response.status == 'USER_EXISTS') {
+                    toastr.error(response.data, 'Erro');
+                    return;
+                }
+
+                toastr.success('Usuário cadastrado com sucesso.', 'Sucesso');
+
+                setCookie("guardian.jwt", response.data, 1);
+                location.href = '/painel';
+
             });
 
+
+            $("#btn-login").click(async function () {
+
+                const form = {
+                    usuario: $('#usuario-login'),
+                    senha: $('#senha-login'),
+                    validarVazio: (campo) => {
+
+                        if (form[campo].val() != '') {
+                            return 0;
+                        }
+
+                        toastr.error(`Preencha o campo obrigatório: "${campo.toUpperCase()}"`, 'Erro')
+
+                        return 1; // Reporta 1 erro encontrado
+
+                    },
+                    pegarValor: (campo) => form[campo].val()
+                }
+
+                let erros = 0;
+
+                erros += form.validarVazio('usuario');
+                erros += form.validarVazio('senha');
+
+                if (erros > 0) {
+                    return;
+                }
+
+                const data = new FormData();
+
+                data.append('usuario', form.pegarValor('usuario'));
+                data.append('senha', form.pegarValor('senha'));
+
+                let response = await fetch('/api/login', {
+                    method: 'POST',
+                    body: data
+                });
+
+                response = await response.json();
+
+                if (response.status == 'USER_PASSWORD_WRONG') {
+                    toastr.error(response.data, 'Erro');
+                    return;
+                }
+
+                setCookie("guardian.jwt", response.data, 1);
+                location.href = '/painel';
+
+
+            });
+
+            // Função para definir um cookie
+            function setCookie(name, value, daysToExpire) {
+                var expirationDate = new Date();
+                expirationDate.setDate(expirationDate.getDate() + daysToExpire);
+
+                var cookie = name + "=" + value + "; expires=" + expirationDate.toUTCString();
+
+                document.cookie = cookie;
+            }
+
+
+            function deleteCookie(name) {
+                document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            }
+
+
+            async function validarUsuarioLogado() {
+
+                let response = await fetch('/api/status');
+
+                response = await response.json();
+
+                if (response.status == 'USER_NOT_LOGGED') {
+                    deleteCookie('guardian.jwt')
+                    return;
+                }
+
+                location.href = '/painel';
+
+            }
 
         });
 

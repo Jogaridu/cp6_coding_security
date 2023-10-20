@@ -1,9 +1,14 @@
 import os
 import sys
+import bcrypt
+import jwt
+import datetime
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'database'))
 from conexao_db  import instanciar_usuarios
 
+SECRET_KEY = 'guardian'
 
 # Instância do banco
 colecao_usuario = instanciar_usuarios()
@@ -11,12 +16,7 @@ colecao_usuario = instanciar_usuarios()
 
 class Usuario:
 
-    # UUID
-    id = ''
-
-    def __init__(self):
-        self.id = '123'
-
+    jwt = ''
  
     def cadastrar(self, body):
         
@@ -24,19 +24,45 @@ class Usuario:
             'email': body['email'],
             'nome': body['nome'],
             'usuario': body['usuario'],
-            'senha': body['senha'],
+            'senha': bcrypt.hashpw(body['senha'].encode('utf-8'), bcrypt.gensalt()).decode('utf-8'),
         }
 
-        response = colecao_usuario.insert_one(dados)
-        print(response)
-        self.auth(body['usuario'], body['senha'])
+        existe = colecao_usuario.find_one({ 'usuario': body['usuario'] })
 
-        return 
+        if existe == None:
+            colecao_usuario.insert_one(dados)
+            token = self.auth(body['usuario'])
+            return token
+        
+        return False
 
-    def auth(self, usuario, senha):
-        print(usuario, senha)
-        print('logou com sucesso')
 
-      
+    def login(self, usuario, senha):
+        
+        usuario = colecao_usuario.find_one({ 'usuario': usuario })
+
+        if usuario == None:
+            return False
+
+
+        if bcrypt.checkpw(senha.encode('utf-8'), usuario['senha'].encode('utf-8')):
+            token = self.auth(usuario['usuario'])
+            return token
+        else:
+            return False
+
+    def auth(self, usuario):
+        
+        payload = {
+            "sub": usuario,  # Assunto
+            "name": "Usuário autenticado",
+            "exp": datetime.datetime.utcnow() + datetime.timedelta(hours=24)  # Tempo de expiração (24 hora a partir de agora)
+        }
+
+        token = jwt.encode(payload, SECRET_KEY, algorithm="HS256")
+        self.jwt = token
+        
+        return token
+
        
 usuario_obj = Usuario()
