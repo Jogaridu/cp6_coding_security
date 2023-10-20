@@ -1,16 +1,15 @@
 from flask import Blueprint, request
 import sys
 import os
-import datetime
-import locale
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'models'))
 from usuario import usuario_obj
+from analise_socket import analise_socket_obj
 
 home = Blueprint('home', __name__)
 
 @home.route('/api/cadastrar', methods=['POST'])
-def api_monitorar():
+def cadastrar():
 
     response = usuario_obj.cadastrar(request.form)
 

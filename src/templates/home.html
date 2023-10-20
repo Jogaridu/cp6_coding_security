@@ -377,7 +377,7 @@
                 $(".container").toggleClass("log-in");
             });
 
-            $("#btn-cadastrar").click(function () {
+            $("#btn-cadastrar").click(async function () {
 
                 const form = {
                     email: $('#email'),
@@ -406,7 +406,7 @@
                 erros += form.validarVazio('senha');
 
                 if (erros > 0) {
-                    // return;
+                    return;
                 }
 
                 const data = new FormData();
@@ -416,7 +416,7 @@
                 data.append('usuario', form.pegarValor('usuario'));
                 data.append('senha', form.pegarValor('senha'));
 
-                fetch('/api/cadastrar', {
+                const response = await fetch('/api/cadastrar', {
                     method: 'POST',
                     body: data
                 });
