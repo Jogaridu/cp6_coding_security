@@ -8,10 +8,56 @@
 </head>
 
 <body>
-    <div class="container">
-        <h1>LIGAR/DESLIGAR detecção em tempo real de PDUs:</h1>
-        <div class="button">
-            <div class="button-indicator"></div>
+    <div class="panel">
+        <div class="panel-button">
+            <h1>LIGAR/DESLIGAR detecção em tempo real de PDUs:</h1>
+            <div class="button">
+                <div class="button-indicator"></div>
+            </div>
+        </div>
+        <div class="panel-packets">
+            <h1>PDUs</h1>
+            <div class="packet ethernet">
+                <h1>Cabeçalho Ethernet</h1>
+                <ul>
+                    <li>MAC de destino:</li>
+                    <li>MAC de origem:</li>
+                    <li>Tipo:</li>
+                </ul>
+            </div>
+            <div class="packet ethernet">
+                <h1>Cabeçalho Ethernet</h1>
+                <ul>
+                    <li>MAC de destino:</li>
+                    <li>MAC de origem:</li>
+                    <li>Tipo:</li>
+                </ul>
+            </div>
+            <div class="packet ip">
+                <h1>Cabeçalho IP</h1>
+                <ul>
+                    <li>Endereço de origem:</li>
+                    <li>Endereço de destino:</li>
+                    <li>Protocolo:</li>
+                </ul>
+            </div>
+            <div class="packet tcp">
+                <h1>Cabeçalho TCP</h1>
+                <ul>
+                    <li>Porta de origem:</li>
+                    <li>Porta de destino:</li>
+                    <li>Número de Sequência:</li>
+                    <li>Número de Ack:</li>
+                </ul>
+            </div>
+            <div class="packet UDP">
+                <h1>Cabeçalho UDP</h1>
+                <ul>
+                    <li>Porta de origem:</li>
+                    <li>Porta de destino:</li>
+                    <li>Tamanho:</li>
+                </ul>
+            </div>
         </div>
     </div>
     

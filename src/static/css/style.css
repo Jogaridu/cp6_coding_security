@@ -23,20 +23,75 @@ body {
     background: #222222;
 }
 
-.container {
+.panel {
     width: 100%;
     height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;   
+}
+
+.panel-button {
+    gap: 25px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+
 }
 
-.container h1 {
-    font-size: 25px;
-    text-align: center;
+.panel-button h1 {
     color: #e9e9e9;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.panel-packets {
+    width: 450px;
+    height: 400px;
+    overflow-y: scroll;
+    padding: 30px;
+    border-radius: 25px;
+    background: transparent;
+    border: 2.5px solid #e9e9e9;
+    gap: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+::-webkit-scrollbar {display: none;}
+
+.panel-packets h1 {
+    font-size: 25px;
+    color: #E9E9E9;
+    font-weight: 800;
+}
+
+.packet {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 20px;
+    background: #e9e9e90e;
+    border: 2.5px solid #e9e9e9;
+    border-style: dotted;
+    border-radius: 20px;
+}
+
+.packet h1 {
+    font-size: 22.5px;
+    color: #fbff1d;
+    font-weight: 700;
+}
+
+.packet ul li {
+    font-size: 20px;
+    color: #e9e9e9;
+    list-style: none;
 }
 
 .button {
